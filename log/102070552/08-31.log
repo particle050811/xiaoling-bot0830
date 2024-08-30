@@ -1,0 +1,83 @@
+[08-31 00:00:32] [DEBUG] 心跳发送成功
+[08-31 00:00:49] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-31 00:00:49] [INFO] 论坛事件订阅成功
+[08-31 00:00:49] [INFO] 初始事件注册成功
+[08-31 00:00:49] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-31 00:00:49] [INFO] 连接成功，机器人开始运行
+[08-31 00:00:49] [INFO] 机器人频道用户ID：16339539897453438804
+[08-31 00:01:30] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-31 00:01:30] [INFO] 论坛事件订阅成功
+[08-31 00:01:30] [INFO] 初始事件注册成功
+[08-31 00:01:31] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-31 00:01:31] [INFO] 连接成功，机器人开始运行
+[08-31 00:01:31] [INFO] 机器人频道用户ID：16339539897453438804
+[08-31 00:01:56] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-31 00:01:56] [INFO] 论坛事件订阅成功
+[08-31 00:01:56] [INFO] 初始事件注册成功
+[08-31 00:01:57] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-31 00:01:57] [INFO] 连接成功，机器人开始运行
+[08-31 00:01:57] [INFO] 机器人频道用户ID：16339539897453438804
+[08-31 00:02:01] [ERROR] KeyError('违规发帖-请先看公告')
+[08-31 00:02:01] [ERROR] [error:KeyError('违规发帖-请先看公告')] File "d:\code\xiaoling-bot0830\qq-bot.py", line 63, in set
+[08-31 00:02:38] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-31 00:02:38] [INFO] 论坛事件订阅成功
+[08-31 00:02:38] [INFO] 初始事件注册成功
+[08-31 00:02:39] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-31 00:02:39] [INFO] 连接成功，机器人开始运行
+[08-31 00:02:39] [INFO] 机器人频道用户ID：16339539897453438804
+[08-31 00:02:51] [INFO] 小管家非法发帖
+[08-31 00:02:51] [ERROR] AttributeError("'Guild' object has no attribute 'formal_id'")
+[08-31 00:02:51] [ERROR] [error:AttributeError("'Guild' object has no attribute 'formal_id'")] File "d:\code\xiaoling-bot0830\qq-bot.py", line 170, in is_formal
+[08-31 00:03:53] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-31 00:03:53] [INFO] 论坛事件订阅成功
+[08-31 00:03:53] [INFO] 初始事件注册成功
+[08-31 00:03:53] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-31 00:03:53] [INFO] 连接成功，机器人开始运行
+[08-31 00:03:54] [INFO] 机器人频道用户ID：16339539897453438804
+[08-31 00:04:05] [INFO] 小管家非法发帖
+[08-31 00:04:35] [DEBUG] 心跳发送成功
+[08-31 00:04:52] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-31 00:04:52] [INFO] 论坛事件订阅成功
+[08-31 00:04:52] [INFO] 初始事件注册成功
+[08-31 00:04:52] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-31 00:04:52] [INFO] 连接成功，机器人开始运行
+[08-31 00:04:52] [INFO] 机器人频道用户ID：16339539897453438804
+[08-31 00:04:56] [ERROR] KeyError('违规发帖-请先看公告')
+[08-31 00:04:56] [ERROR] [error:KeyError('违规发帖-请先看公告')] File "d:\code\xiaoling-bot0830\qq-bot.py", line 63, in set
+[08-31 00:05:30] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-31 00:05:30] [INFO] 论坛事件订阅成功
+[08-31 00:05:30] [INFO] 初始事件注册成功
+[08-31 00:05:30] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-31 00:05:30] [INFO] 连接成功，机器人开始运行
+[08-31 00:05:30] [INFO] 机器人频道用户ID：16339539897453438804
+[08-31 00:05:35] [INFO] 小管家非法发帖
+[08-31 00:06:54] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-31 00:06:54] [INFO] 论坛事件订阅成功
+[08-31 00:06:54] [INFO] 初始事件注册成功
+[08-31 00:06:54] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-31 00:06:54] [INFO] 连接成功，机器人开始运行
+[08-31 00:06:54] [INFO] 机器人频道用户ID：16339539897453438804
+[08-31 00:07:02] [INFO] 小管家非法发帖
+[08-31 00:07:36] [DEBUG] 心跳发送成功
+[08-31 00:08:17] [DEBUG] 心跳发送成功
+[08-31 00:08:58] [DEBUG] 心跳发送成功
+[08-31 00:09:39] [DEBUG] 心跳发送成功
+[08-31 00:10:20] [DEBUG] 心跳发送成功
+[08-31 00:11:02] [DEBUG] 心跳发送成功
+[08-31 00:11:43] [DEBUG] 心跳发送成功
+[08-31 00:15:05] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-31 00:15:05] [INFO] 论坛事件订阅成功
+[08-31 00:15:05] [INFO] 初始事件注册成功
+[08-31 00:15:05] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-31 00:15:06] [INFO] 连接成功，机器人开始运行
+[08-31 00:15:06] [INFO] 机器人频道用户ID：16339539897453438804
+[08-31 00:15:15] [INFO] 小管家非法发帖
+[08-31 00:15:47] [DEBUG] 心跳发送成功
+[08-31 00:17:17] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-31 00:17:17] [INFO] 论坛事件订阅成功
+[08-31 00:17:17] [INFO] 初始事件注册成功
+[08-31 00:17:17] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-31 00:17:18] [INFO] 连接成功，机器人开始运行
+[08-31 00:17:18] [INFO] 机器人频道用户ID：16339539897453438804
+[08-31 00:17:22] [INFO] 小管家非法发帖
+[08-31 00:17:31] [INFO] 小管家非法发帖

@@ -1,0 +1,39 @@
+[08-30 23:56:14] [INFO] 论坛事件订阅成功
+[08-30 23:56:14] [INFO] 初始事件注册成功
+[08-30 23:56:14] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-30 23:56:15] [INFO] 连接成功，机器人开始运行
+[08-30 23:56:15] [INFO] 机器人频道用户ID：16339539897453438804
+[08-30 23:56:15] [ERROR] FileNotFoundError(2, 'No such file or directory')
+[08-30 23:56:15] [ERROR] [error:FileNotFoundError(2, 'No such file or directory')] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\xml\etree\ElementTree.py", line 569, in parse
+[08-30 23:57:18] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-30 23:57:18] [INFO] 论坛事件订阅成功
+[08-30 23:57:18] [INFO] 初始事件注册成功
+[08-30 23:57:18] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-30 23:57:18] [INFO] 连接成功，机器人开始运行
+[08-30 23:57:18] [INFO] 机器人频道用户ID：16339539897453438804
+[08-30 23:57:18] [ERROR] FileNotFoundError(2, 'No such file or directory')
+[08-30 23:57:18] [ERROR] [error:FileNotFoundError(2, 'No such file or directory')] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\xml\etree\ElementTree.py", line 569, in parse
+[08-30 23:58:00] [DEBUG] 心跳发送成功
+[08-30 23:58:41] [DEBUG] 心跳发送成功
+[08-30 23:59:06] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-30 23:59:06] [INFO] 论坛事件订阅成功
+[08-30 23:59:06] [INFO] 初始事件注册成功
+[08-30 23:59:06] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-30 23:59:06] [INFO] 连接成功，机器人开始运行
+[08-30 23:59:07] [INFO] 机器人频道用户ID：16339539897453438804
+[08-30 23:59:07] [ERROR] FileNotFoundError(2, 'No such file or directory')
+[08-30 23:59:07] [ERROR] [error:FileNotFoundError(2, 'No such file or directory')] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\xml\etree\ElementTree.py", line 569, in parse
+[08-30 23:59:15] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-30 23:59:15] [INFO] 论坛事件订阅成功
+[08-30 23:59:15] [INFO] 初始事件注册成功
+[08-30 23:59:15] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-30 23:59:16] [INFO] 连接成功，机器人开始运行
+[08-30 23:59:16] [INFO] 机器人频道用户ID：16339539897453438804
+[08-30 23:59:16] [ERROR] FileNotFoundError(2, 'No such file or directory')
+[08-30 23:59:16] [ERROR] [error:FileNotFoundError(2, 'No such file or directory')] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\xml\etree\ElementTree.py", line 569, in parse
+[08-30 23:59:50] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[08-30 23:59:50] [INFO] 论坛事件订阅成功
+[08-30 23:59:50] [INFO] 初始事件注册成功
+[08-30 23:59:51] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[08-30 23:59:51] [INFO] 连接成功，机器人开始运行
+[08-30 23:59:51] [INFO] 机器人频道用户ID：16339539897453438804
