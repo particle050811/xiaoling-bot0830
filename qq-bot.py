@@ -10,8 +10,6 @@ import xml.etree.ElementTree as ET
 
 class AI:
     def __init__(self, name):
-        tree=ET.parse('config.xml')
-        root=tree.getroot()
         self.model=root.find(f'{name}/model').text
         api_key=root.find(f'{name}/api_key').text
         base_url=root.find(f'{name}/base_url').text
@@ -43,6 +41,7 @@ class Guild:
             self.name = root.find('guild_name/test').text
         else:
             self.name = root.find('guild_name/formal').text
+        bot.logger.info(f'机器人在{self.name}运行')
         self.id=''
         
     def set(self,guild_id):
@@ -200,8 +199,7 @@ class Forumer:
                 '请先看公告，再来考核区参与考核。'
             ))
         '''
-  
-tree = ET.parse('C:/code/config.xml')
+tree = ET.parse('../config.xml')
 root = tree.getroot()
 botId = root.find('bot/id').text
 botToken = root.find('bot/token').text
