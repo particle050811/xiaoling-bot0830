@@ -58,7 +58,7 @@ class Guild:
         self.channel_dict = {channel.name: channel.id for channel in self.channels}
         self.role_dict = {sf.name: sf.id for sf in self.roles}
 
-        #self.formal_id = self.role_dict['正式成员']
+        self.formal_id = self.role_dict['正式成员']
         self.smartboy_id = self.role_dict['违规发帖-请先看公告']
 
         self.log_id = self.channel_dict['机器人运行日志']
@@ -168,6 +168,8 @@ class Forumer:
         return True
     def is_formal(self):
         return guild.formal_id in self.user.roles
+    def is_admin(self):
+        return set(guild.admin_ids)&set(self.user.roles)
     def delete(self):
         bot.api.delete_thread(self.channel_id,self.thread_id)
     def remind(self):
@@ -180,10 +182,14 @@ class Forumer:
     def check(self):
         if self.is_legal():
             return
-        self.delete()
         self.remind()
         bot.logger.info(f'{self.user.user.username}非法发帖')
-        self.log(f'{self.user.user.username}非法发帖')
+        if self.is_admin() or self.is_formal():
+            self.log(f'{self.user.user.username}非法发帖,但是权限较高，所以保留帖子内容')
+        else:
+            self.log(f'{self.user.user.username}非法发帖')
+            self.delete()
+        
         '''
         if self.is_formal():
             self.reply((
