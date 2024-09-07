@@ -83,6 +83,7 @@ class Guild:
         self.assessment_id = self.channel_dict['AI自动审核区']
         self.cooperation_id = self.channel_dict['互助区']
         self.answer_id = self.channel_dict['答疑区']
+        self.notice_id = self.channel_dict['公告区']
         #self.instant_id = self.channel_dict['即时互助区']
         
         return True
@@ -103,7 +104,7 @@ class Messager:
         self.roles=data.member.roles
 
         self.head=f'<@{self.author_id}>\n'
-        self.success = (f'你通过了考核，请根据<#{guild.cooperation_id}>的指引前往fanbook互助')
+        self.success = (f'你通过了考核，请根据<#{guild.notice_id}>的指引前往fanbook互助')
     def set_formal(self,id):
         bot.api.create_role_member(id,guild.id,guild.formal_id)
     def reply(self, msg):
@@ -139,7 +140,10 @@ class Messager:
         
     def ai_check(self):
         checked=deepseek.check(self.message)
+
+        bot.logger.info(self.message)
         bot.logger.info(checked)
+
         msg=json.loads(checked)
         if msg['委托表'] != '合法':
             return msg['委托表']
@@ -149,7 +153,9 @@ class Messager:
                 reply += f'{value}\n'
         return reply[:-1]
     def ai_query(self):
-        return deepseek.query(self.message)
+        reply=deepseek.query(self.message)
+        bot.logger.info(reply)
+        return reply
     def check(self):
         #bot.logger.info('check')
         if self.channel_id!=guild.assessment_id:
@@ -171,6 +177,7 @@ class Messager:
             return False
         if not self.is_at():
             return False
+        self.reply('小灵bot收到问题，正在编写回复')
         reply=self.ai_query()
         self.reply(reply)
         return True
@@ -211,7 +218,7 @@ class Forumer:
             return
         self.remind()
         bot.logger.info(f'{self.user.user.username}非法发帖')
-        if self.is_admin() or self.is_formal():
+        if self.is_admin():
             self.log(f'{self.user.user.username}非法发帖,但是权限较高，所以保留帖子内容')
         else:
             self.log(f'{self.user.user.username}非法发帖')
@@ -219,15 +226,14 @@ class Forumer:
         
         
         if self.is_formal():
+            
             self.reply((
-                '机器人已自动将你在帖子广场的帖删除。'
+                f'机器人已自动将你在帖子广场的帖删除,请根据<#{guild.notice_id}>的指引前往fanbook互助。'
             ))
+            
         else:
             self.reply((
-                '机器人已自动将你在帖子广场的帖删除。'
-                '由于很多人的举报信息收集表填写不完整，导致互助效率极度低下，'
-                '故本频道需要通过考核后才能发帖。'
-                '请先看公告，再来考核区参与考核。'
+                f'机器人已自动将你在帖子广场的帖删除,请根据<#{guild.notice_id}>的指引前往fanbook互助。'
             ))
         
         
