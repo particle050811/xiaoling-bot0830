@@ -16,6 +16,8 @@ class AI:
         self.client = OpenAI(api_key=api_key, base_url=base_url)
         with open('check_prompt.txt', 'r',encoding='utf-8') as file:
             self.check_prompt=file.read()
+        with open('query_prompt.txt', 'r',encoding='utf-8') as file:
+            self.query_prompt=file.read()        
     def check(self, msg):
         response = self.client.chat.completions.create(
             model=self.model,
@@ -35,6 +37,22 @@ class AI:
             }
         )
         return response.choices[0].message.content
+    def query(self, msg):
+        response = self.client.chat.completions.create(
+            model=self.model,
+            temperature=1.0,
+            messages=[
+                {
+                    "role": "system",
+                    "content": self.query_prompt
+                },
+                {
+                    "role": "user",
+                    "content": msg
+                }
+            ]
+        )
+        return response.choices[0].message.content        
 class Guild:
     def __init__(self,is_test:bool):
         if (is_test):
@@ -62,12 +80,13 @@ class Guild:
         self.smartboy_id = self.role_dict['违规发帖-请先看公告']
 
         self.log_id = self.channel_dict['机器人运行日志']
-        #self.assessment_id = self.channel_dict['AI自动审核区']
-        #self.cooperation_id = self.channel_dict['互助区']
+        self.assessment_id = self.channel_dict['AI自动审核区']
+        self.cooperation_id = self.channel_dict['互助区']
+        self.answer_id = self.channel_dict['答疑区']
         #self.instant_id = self.channel_dict['即时互助区']
         
         return True
-'''
+
 class Messager:
     def __init__(self,data: Model.MESSAGE):
         self.data=data
@@ -84,9 +103,7 @@ class Messager:
         self.roles=data.member.roles
 
         self.head=f'<@{self.author_id}>\n'
-        self.success = (f'你通过了考核，可以去<#{guild.cooperation_id}>发帖找人互助了。'
-                f'发帖时不选择分区会被机器人自动删除。'
-                f'如果找不到人互助，可以去<#{guild.instant_id}>实时找人互助')
+        self.success = (f'你通过了考核，请根据<#{guild.cooperation_id}>的指引前往fanbook互助')
     def set_formal(self,id):
         bot.api.create_role_member(id,guild.id,guild.formal_id)
     def reply(self, msg):
@@ -120,7 +137,7 @@ class Messager:
         self.reply(f'已将{members}设置为正式成员\n{self.success}')
         return True
         
-    def ask_ai(self):
+    def ai_check(self):
         checked=deepseek.check(self.message)
         bot.logger.info(checked)
         msg=json.loads(checked)
@@ -131,23 +148,33 @@ class Messager:
             if value!='合法':
                 reply += f'{value}\n'
         return reply[:-1]
+    def ai_query(self):
+        return deepseek.query(self.message)
     def check(self):
         #bot.logger.info('check')
         if self.channel_id!=guild.assessment_id:
-            return
+            return False
         if not self.is_at():
-            return
+            return False
         self.reply(('小灵bot已收到委托表,预计10s后会回复审核结果'
-           '（没有这条消息说明你的消息违规，被tx拦截了，请截图后去人工区考核）'
-           f'以下为考核表原文：\n\n{self.message}'))
-        reply=self.ask_ai()
+           '（没有这条消息说明你的消息违规，被tx拦截了，请截图后去人工区考核）'))
+        reply=self.ai_check()
         if reply=='':
             self.reply(self.success)
             self.set_formal(self.author_id)
             bot.logger.info(f' {self.name} 通过考核')
         else:
-            self.reply(reply)    
-''' 
+            self.reply(reply)
+        return True
+    def query(self):
+        if self.channel_id!=guild.answer_id:
+            return False
+        if not self.is_at():
+            return False
+        reply=self.ai_query()
+        self.reply(reply)
+        return True
+
 class Forumer:
     def __init__(self,data: Model.FORUMS_EVENT):
         self.author_id=data.author_id
@@ -190,12 +217,10 @@ class Forumer:
             self.log(f'{self.user.user.username}非法发帖')
             self.delete()
         
-        '''
+        
         if self.is_formal():
             self.reply((
                 '机器人已自动将你在帖子广场的帖删除。'
-                f'请在发帖选择<#{guild.cooperation_id}>板块，不要到帖子广场发帖。'
-                f'如果需要找人互助，可以去<#{guild.instant_id}>挂着，实时找人互助'
             ))
         else:
             self.reply((
@@ -204,13 +229,14 @@ class Forumer:
                 '故本频道需要通过考核后才能发帖。'
                 '请先看公告，再来考核区参与考核。'
             ))
-        '''
-tree = ET.parse('../config.xml')
+        
+        
+tree = ET.parse('../qq-bot.xml')
 root = tree.getroot()
 botId = root.find('bot/id').text
 botToken = root.find('bot/token').text
 bot = BOT(bot_id=botId, bot_token=botToken, is_private=True)
-'''
+
 @bot.bind_msg()
 def deliver(data: Model.MESSAGE):
     if not guild.set(data.guild_id):
@@ -225,7 +251,9 @@ def deliver(data: Model.MESSAGE):
         return
     if user.check():
         return
-''' 
+    if user.query():
+        return
+
 @bot.bind_forum()
 def forum_function(data: Model.FORUMS_EVENT):
     if data.t != 'FORUM_THREAD_CREATE':

@@ -1,0 +1,200 @@
+[09-07 00:00:28] [DEBUG] 心跳发送成功
+[09-07 00:01:09] [DEBUG] 心跳发送成功
+[09-07 00:01:50] [DEBUG] 心跳发送成功
+[09-07 00:02:32] [DEBUG] 心跳发送成功
+[09-07 00:03:13] [DEBUG] 心跳发送成功
+[09-07 00:03:54] [DEBUG] 心跳发送成功
+[09-07 00:04:35] [DEBUG] 心跳发送成功
+[09-07 00:05:17] [DEBUG] 心跳发送成功
+[09-07 00:05:58] [DEBUG] 心跳发送成功
+[09-07 00:06:39] [DEBUG] 心跳发送成功
+[09-07 00:07:20] [DEBUG] 心跳发送成功
+[09-07 00:08:02] [DEBUG] 心跳发送成功
+[09-07 00:08:43] [DEBUG] 心跳发送成功
+[09-07 00:09:24] [DEBUG] 心跳发送成功
+[09-07 00:10:05] [DEBUG] 心跳发送成功
+[09-07 00:10:47] [DEBUG] 心跳发送成功
+[09-07 00:11:28] [DEBUG] 心跳发送成功
+[09-07 00:12:09] [DEBUG] 心跳发送成功
+[09-07 00:12:50] [DEBUG] 心跳发送成功
+[09-07 00:13:32] [DEBUG] 心跳发送成功
+[09-07 00:14:13] [DEBUG] 心跳发送成功
+[09-07 00:14:54] [DEBUG] 心跳发送成功
+[09-07 00:15:35] [DEBUG] 心跳发送成功
+[09-07 00:16:17] [DEBUG] 心跳发送成功
+[09-07 00:16:43] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 00:16:46] [INFO] 重连成功，机器人继续运行
+[09-07 00:17:27] [DEBUG] 心跳发送成功
+[09-07 00:18:08] [DEBUG] 心跳发送成功
+[09-07 00:18:50] [DEBUG] 心跳发送成功
+[09-07 00:19:31] [DEBUG] 心跳发送成功
+[09-07 00:20:12] [DEBUG] 心跳发送成功
+[09-07 00:20:54] [DEBUG] 心跳发送成功
+[09-07 00:21:35] [DEBUG] 心跳发送成功
+[09-07 00:22:16] [DEBUG] 心跳发送成功
+[09-07 00:22:57] [DEBUG] 心跳发送成功
+[09-07 00:23:39] [DEBUG] 心跳发送成功
+[09-07 00:24:20] [DEBUG] 心跳发送成功
+[09-07 00:25:01] [DEBUG] 心跳发送成功
+[09-07 00:25:42] [DEBUG] 心跳发送成功
+[09-07 00:26:24] [DEBUG] 心跳发送成功
+[09-07 00:27:05] [DEBUG] 心跳发送成功
+[09-07 00:27:46] [DEBUG] 心跳发送成功
+[09-07 00:28:27] [DEBUG] 心跳发送成功
+[09-07 00:29:09] [DEBUG] 心跳发送成功
+[09-07 00:29:50] [DEBUG] 心跳发送成功
+[09-07 00:30:31] [DEBUG] 心跳发送成功
+[09-07 00:31:12] [DEBUG] 心跳发送成功
+[09-07 00:31:54] [DEBUG] 心跳发送成功
+[09-07 00:32:35] [DEBUG] 心跳发送成功
+[09-07 00:33:16] [DEBUG] 心跳发送成功
+[09-07 00:33:58] [DEBUG] 心跳发送成功
+[09-07 00:34:39] [DEBUG] 心跳发送成功
+[09-07 00:35:20] [DEBUG] 心跳发送成功
+[09-07 00:36:01] [DEBUG] 心跳发送成功
+[09-07 00:36:42] [DEBUG] 心跳发送成功
+[09-07 00:37:24] [DEBUG] 心跳发送成功
+[09-07 00:38:05] [DEBUG] 心跳发送成功
+[09-07 00:38:46] [DEBUG] 心跳发送成功
+[09-07 00:39:27] [DEBUG] 心跳发送成功
+[09-07 00:40:09] [DEBUG] 心跳发送成功
+[09-07 10:46:26] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:46:30] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:46:30] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:46:30] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:46:33] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:46:33] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:46:33] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:46:36] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:46:36] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:46:36] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:46:39] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:46:39] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:46:39] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:46:42] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:46:42] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:46:42] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:46:45] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:46:45] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:46:45] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:46:48] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:46:48] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:46:48] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:46:51] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:46:51] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:46:51] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:46:54] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:46:54] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:46:54] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:46:57] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:46:57] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:46:57] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:00] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:00] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:00] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:03] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:03] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:03] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:06] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:06] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:06] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:09] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:09] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:09] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:12] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:12] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:12] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:15] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:15] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:15] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:18] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:18] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:18] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:21] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:21] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:21] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:24] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:24] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:24] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:27] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:27] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:27] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:30] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:30] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:30] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:33] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:33] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:33] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:36] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:36] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:36] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:39] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:39] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:39] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:42] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:42] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:42] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:45] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:45] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:45] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:48] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:48] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:48] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:51] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:51] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:51] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:54] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:54] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:54] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:47:57] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:47:57] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:47:57] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:48:00] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:48:00] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:48:00] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:48:03] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:48:03] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:48:03] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:48:06] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:48:06] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:48:06] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:48:09] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:48:09] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:48:09] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:48:12] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:48:12] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:48:12] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:48:15] [WARNING] BOT_WS链接已断开，正在尝试重连……
+[09-07 10:48:15] [ERROR] ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))
+[09-07 10:48:15] [ERROR] [error:ClientConnectorError(ConnectionKey(host='api.sgroup.qq.com', port=443, is_ssl=True, ssl=<ssl.SSLContext object at 0x00000207D5826D40>, proxy=None, proxy_auth=None, proxy_headers_hash=None), gaierror(11004, 'getaddrinfo failed'))] File "C:\Users\particle\AppData\Local\Programs\Python\Python39\lib\site-packages\aiohttp\connector.py", line 1187, in _create_direct_connection
+[09-07 10:48:19] [INFO] 连接成功，机器人开始运行
+[09-07 10:49:00] [DEBUG] 心跳发送成功
+[09-07 10:49:39] [DEBUG] 心跳发送成功
+[09-07 10:50:21] [DEBUG] 心跳发送成功
+[09-07 10:51:02] [DEBUG] 心跳发送成功
+[09-07 10:51:43] [DEBUG] 心跳发送成功
+[09-07 10:52:25] [DEBUG] 心跳发送成功
+[09-07 10:53:06] [DEBUG] 心跳发送成功
+[09-07 10:53:47] [DEBUG] 心跳发送成功
+[09-07 10:54:28] [DEBUG] 心跳发送成功
+[09-07 10:55:10] [DEBUG] 心跳发送成功
+[09-07 10:55:51] [DEBUG] 心跳发送成功
+[09-07 10:56:32] [DEBUG] 心跳发送成功
+[09-07 10:57:13] [DEBUG] 心跳发送成功
+[09-07 10:57:55] [DEBUG] 心跳发送成功
+[09-07 10:58:36] [DEBUG] 心跳发送成功
+[09-07 10:59:17] [DEBUG] 心跳发送成功
+[09-07 10:59:58] [DEBUG] 心跳发送成功
+[09-07 11:00:40] [DEBUG] 心跳发送成功
+[09-07 11:01:21] [DEBUG] 心跳发送成功
+[09-07 11:02:02] [DEBUG] 心跳发送成功
+[09-07 11:02:43] [DEBUG] 心跳发送成功
+[09-07 11:03:25] [DEBUG] 心跳发送成功
+[09-07 11:04:13] [INFO] Session Manager 读取了 D:\code\xiaoling-bot0830\session_data 的数据
+[09-07 11:04:13] [INFO] 消息（所有消息）接收函数订阅成功
+[09-07 11:04:13] [INFO] 论坛事件订阅成功
+[09-07 11:04:13] [INFO] 初始事件注册成功
+[09-07 11:04:13] [DEBUG] [机器人ws地址] wss://api.sgroup.qq.com/websocket
+[09-07 11:04:13] [INFO] 连接成功，机器人开始运行
+[09-07 11:04:13] [INFO] 机器人频道用户ID：16339539897453438804
+[09-07 11:04:13] [INFO] 机器人在知识学习交流频道运行
