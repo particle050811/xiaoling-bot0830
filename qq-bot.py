@@ -81,7 +81,7 @@ class Guild:
 
         self.log_id = self.channel_dict['机器人运行日志']
         self.assessment_id = self.channel_dict['AI自动审核区']
-        self.cooperation_id = self.channel_dict['互助区']
+        #self.cooperation_id = self.channel_dict['互助区']
         self.answer_id = self.channel_dict['答疑区']
         self.notice_id = self.channel_dict['公告区']
         #self.instant_id = self.channel_dict['即时互助区']
