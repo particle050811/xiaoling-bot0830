@@ -19,28 +19,30 @@ class AI:
         with open('query_prompt.txt', 'r',encoding='utf-8') as file:
             self.query_prompt=file.read()        
     def check(self, msg):
+        bot.logger.info('开始检验')
         response = self.client.chat.completions.create(
             model=self.model,
-            temperature=0.7,
+            #temperature=1.0,
             messages=[
-                {
-                    "role": "system",
-                    "content": self.check_prompt
-                },
-                {
-                    "role": "user",
-                    "content": msg
-                }
+                {"role": "system", "content": self.check_prompt},
+                {"role": "user", "content": msg}
             ],
-            response_format={
-                'type': 'json_object'
-            }
+            stream=True,
+            response_format={'type': 'json_object'}
         )
-        return response.choices[0].message.content
+
+        reply = ""
+        for chunk in response:
+            if chunk.choices and chunk.choices[0].delta.content:
+                content = chunk.choices[0].delta.content
+                reply += content
+                print(content, end='', flush=True)
+        print()
+        return reply
     def query(self, msg):
         response = self.client.chat.completions.create(
             model=self.model,
-            temperature=1.0,
+            temperature=1.3,
             messages=[
                 {
                     "role": "system",
@@ -139,11 +141,11 @@ class Messager:
         return True
         
     def ai_check(self):
-        checked=deepseek.check(self.message)
+        checked=ai.check(self.message)
 
         bot.logger.info(self.message)
-        bot.logger.info(checked)
-
+        #bot.logger.info(checked)
+        #checked=re.sub(r'^```json|```$', '', checked, flags=re.MULTILINE)
         msg=json.loads(checked)
         if msg['委托表'] != '合法':
             return msg['委托表']
@@ -153,7 +155,7 @@ class Messager:
                 reply += f'{value}\n'
         return reply[:-1]
     def ai_query(self):
-        reply=deepseek.query(self.message)
+        reply=ai.query(self.message)
         bot.logger.info(reply)
         return reply
     def check(self):
@@ -214,12 +216,19 @@ class Forumer:
                          content=content,
                          message_id=self.thread_id)
     def check(self):
+        """
+        Checks if the forum post is legal and takes appropriate actions.
+
+        If the post is not legal, it logs the event, reminds the user, and deletes the post if the user is not an admin.
+        If the user is an admin, the post is not deleted but still logged.
+        """
         if self.is_legal():
             return
         self.remind()
         bot.logger.info(f'{self.user.user.username}非法发帖')
         if self.is_admin():
             self.log(f'{self.user.user.username}非法发帖,但是权限较高，所以保留帖子内容')
+            
         else:
             self.log(f'{self.user.user.username}非法发帖')
             self.delete()
@@ -235,6 +244,8 @@ class Forumer:
             self.reply((
                 f'机器人已自动将你在帖子广场的帖删除,请根据<#{guild.notice_id}>的指引前往fanbook互助。'
             ))
+
+                                                                
         
         
 tree = ET.parse('../qq-bot.xml')
@@ -273,8 +284,8 @@ def forum_function(data: Model.FORUMS_EVENT):
 
 @bot.register_start_event()
 def init():
-    global deepseek; deepseek = AI('deepseek')
-    global guild; guild = Guild(is_test=False)
+    global ai; ai = AI('qwen-plus')
+    global guild; guild = Guild(is_test=True)
     global bot_id; bot_id=bot.api.get_bot_info().data.id
 
 if __name__ == "__main__":

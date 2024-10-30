@@ -108,11 +108,16 @@ class BOT:
         self.check(response)
     
 class Guild:
+    def get(self,str):
+        return root.find(f'{self.url}/{str}').text
     def __init__(self,is_test:bool):
         if (is_test):
-            self.id = root.find('guild_id/test').text
+            self.url='test'
         else:
-            self.id = root.find('guild_id/formal').text
+            self.url='formal'
+        self.id = self.get('guild_id')
+        self.assessment_id = self.get('assessment_id')
+
     def set(self):
         self.channels=bot.get_channels()
         
@@ -131,7 +136,7 @@ def on_message(ws, message):
     #print(message)
     data = json.loads(message)
     json_str = json.dumps(data, ensure_ascii=False ,indent=4)
-    print(json_str)
+    #print(json_str)
     if data['action']=='push':
         forum_function(data['data'])
 def on_error(ws, error):
@@ -157,11 +162,13 @@ def reconnect():
                                 on_open=on_open)
     print('重连成功')
     ws.run_forever()
+def trans(str):
+    return '{\"type\":\"text\",\"text\":\"'+str+'\",\"contentType\":0}'
 def forum_function(data):
     print('已开始处理消息')
-    json_str = json.loads(data['content'])
-    json_str = json.dumps(json_str, ensure_ascii=False ,indent=4)
-    print(json_str)
+    content=data['desc']
+    print(content)
+    sendMessage(guild.id,guild.assessment_id,trans(content),content)
 
 tree = ET.parse('../fan-bot.xml')
 root = tree.getroot()
