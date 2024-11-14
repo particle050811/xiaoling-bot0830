@@ -22,7 +22,6 @@ class AI:
         bot.logger.info('开始检验')
         response = self.client.chat.completions.create(
             model=self.model,
-            #temperature=1.0,
             messages=[
                 {"role": "system", "content": self.check_prompt},
                 {"role": "user", "content": msg}
@@ -40,21 +39,23 @@ class AI:
         print()
         return reply
     def query(self, msg):
+        bot.logger.info('开始答疑')
         response = self.client.chat.completions.create(
             model=self.model,
-            temperature=1.3,
             messages=[
-                {
-                    "role": "system",
-                    "content": self.query_prompt
-                },
-                {
-                    "role": "user",
-                    "content": msg
-                }
-            ]
+                {"role": "system", "content": self.query_prompt},
+                {"role": "user", "content": msg}
+            ],
+            stream=True
         )
-        return response.choices[0].message.content        
+        reply = ""
+        for chunk in response:
+            if chunk.choices and chunk.choices[0].delta.content:
+                content = chunk.choices[0].delta.content
+                reply += content
+                print(content, end='', flush=True)
+        print()
+        return reply       
 class Guild:
     def __init__(self,is_test:bool):
         if (is_test):
@@ -83,7 +84,7 @@ class Guild:
 
         self.log_id = self.channel_dict['机器人运行日志']
         self.assessment_id = self.channel_dict['AI自动审核区']
-        #self.cooperation_id = self.channel_dict['互助区']
+        self.cooperation_id = self.channel_dict['互助区']
         self.answer_id = self.channel_dict['答疑区']
         self.notice_id = self.channel_dict['公告区']
         #self.instant_id = self.channel_dict['即时互助区']
@@ -106,7 +107,7 @@ class Messager:
         self.roles=data.member.roles
 
         self.head=f'<@{self.author_id}>\n'
-        self.success = (f'你通过了考核，请根据<#{guild.notice_id}>的指引前往fanbook互助')
+        self.success = (f'你通过了考核，请点击<#{guild.cooperation_id}>前往互助区发帖，主动私信联系别人互助。')
     def set_formal(self,id):
         bot.api.create_role_member(id,guild.id,guild.formal_id)
     def reply(self, msg):
@@ -235,15 +236,17 @@ class Forumer:
         
         
         if self.is_formal():
-            
             self.reply((
-                f'机器人已自动将你在帖子广场的帖删除,请根据<#{guild.notice_id}>的指引前往fanbook互助。'
+                '机器人已自动将你在帖子广场的帖删除。'
+                f'请在发帖选择<#{guild.cooperation_id}>板块，不要到帖子广场发帖。'
             ))
-            
         else:
             self.reply((
-                f'机器人已自动将你在帖子广场的帖删除,请根据<#{guild.notice_id}>的指引前往fanbook互助。'
-            ))
+                '机器人已自动将你在帖子广场的帖删除。'
+                '由于很多人的举报信息收集表填写不完整，导致互助效率极度低下，'
+                '故本频道需要通过考核后才能发帖。'
+                '请先看公告，再来考核区参与考核。'
+            )) 
 
                                                                 
         
@@ -284,8 +287,8 @@ def forum_function(data: Model.FORUMS_EVENT):
 
 @bot.register_start_event()
 def init():
-    global ai; ai = AI('qwen-plus')
-    global guild; guild = Guild(is_test=True)
+    global ai; ai = AI('deepseek')
+    global guild; guild = Guild(is_test=False)
     global bot_id; bot_id=bot.api.get_bot_info().data.id
 
 if __name__ == "__main__":
