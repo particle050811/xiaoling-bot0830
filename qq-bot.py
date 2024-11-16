@@ -26,10 +26,10 @@ class AI:
                 {"role": "system", "content": self.check_prompt},
                 {"role": "user", "content": msg}
             ],
-            stream=True,
+            #stream=True,
             response_format={'type': 'json_object'}
         )
-
+        '''
         reply = ""
         for chunk in response:
             if chunk.choices and chunk.choices[0].delta.content:
@@ -37,7 +37,8 @@ class AI:
                 reply += content
                 print(content, end='', flush=True)
         print()
-        return reply
+        '''
+        return response.choices[0].message.content
     def query(self, msg):
         bot.logger.info('开始答疑')
         response = self.client.chat.completions.create(
@@ -45,17 +46,9 @@ class AI:
             messages=[
                 {"role": "system", "content": self.query_prompt},
                 {"role": "user", "content": msg}
-            ],
-            stream=True
+            ]
         )
-        reply = ""
-        for chunk in response:
-            if chunk.choices and chunk.choices[0].delta.content:
-                content = chunk.choices[0].delta.content
-                reply += content
-                print(content, end='', flush=True)
-        print()
-        return reply       
+        return response.choices[0].message.content       
 class Guild:
     def __init__(self,is_test:bool):
         if (is_test):
@@ -142,9 +135,9 @@ class Messager:
         return True
         
     def ai_check(self):
+        bot.logger.info(self.name+'发布委托表：\n'+self.message)
         checked=ai.check(self.message)
-
-        bot.logger.info(self.message)
+        bot.logger.info('\n'+checked)
         #bot.logger.info(checked)
         #checked=re.sub(r'^```json|```$', '', checked, flags=re.MULTILINE)
         msg=json.loads(checked)
@@ -287,7 +280,7 @@ def forum_function(data: Model.FORUMS_EVENT):
 
 @bot.register_start_event()
 def init():
-    global ai; ai = AI('deepseek')
+    global ai; ai = AI('qwen-plus')
     global guild; guild = Guild(is_test=False)
     global bot_id; bot_id=bot.api.get_bot_info().data.id
 
