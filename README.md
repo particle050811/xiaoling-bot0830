@@ -6,11 +6,10 @@ pip install qg-botsdk
 ```
 
 ### 配置文件要放在该文件夹同一个目录下
-```
-code-|
-    xiaoling-bot0830
-    qq-bot.json
-```
+
+- code
+  - xiaoling-bot0830
+  - qq-bot.json
 
 
 ### 配置文件示例
