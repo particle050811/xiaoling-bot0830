@@ -7,6 +7,7 @@ from datetime import datetime
 import time
 import re
 import xml.etree.ElementTree as ET
+from codeshop.area import *
 
 class AI:
     def __init__(self, name):
@@ -173,6 +174,14 @@ class Messager:
             return False
         if not self.is_at():
             return False
+        if "查区号" in self.message:
+            reply=arname(self.message)
+            self.reply(reply)
+            return True
+        if "查地方" in self.message:
+            reply=arnum(self.message)
+            self.reply(reply)
+            return True
         self.reply('小灵bot收到问题，正在编写回复')
         reply=self.ai_query()
         self.reply(reply)
