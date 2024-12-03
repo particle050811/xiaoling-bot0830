@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
 from qg_botsdk import BOT, Model
 from openai import OpenAI
-import os
 import json
-from datetime import datetime
-import time
 import re
-import xml.etree.ElementTree as ET
 
 class AI:
-    def __init__(self, name):
-        self.model=root.find(f'{name}/model').text
-        api_key=root.find(f'{name}/api_key').text
-        base_url=root.find(f'{name}/base_url').text
+    def __init__(self, model, api_key, base_url):
+        self.model=model
         self.client = OpenAI(api_key=api_key, base_url=base_url)
         with open('check_prompt.txt', 'r',encoding='utf-8') as file:
             self.check_prompt=file.read()
@@ -50,21 +44,18 @@ class AI:
         )
         return response.choices[0].message.content       
 class Guild:
-    def __init__(self,is_test:bool):
-        if (is_test):
-            self.name = root.find('guild_name/test').text
-        else:
-            self.name = root.find('guild_name/formal').text
+    def __init__(self,name):
+        self.name = name
         bot.logger.info(f'机器人在{self.name}运行')
-        self.id=''
+        self.id = ''
         
     def set(self,guild_id):
-        if self.id!='':
+        if self.id != '':
             return True
         name=bot.api.get_guild_info(guild_id).data.name
-        if (name!=self.name):
+        if (name != self.name):
             return False
-        self.id=guild_id
+        self.id = guild_id
         self.channels = bot.api.get_guild_channels(self.id).data
         self.roles = bot.api.get_guild_roles(self.id).data.roles
 
@@ -115,13 +106,11 @@ class Messager:
     def is_admin(self):
         return set(guild.admin_ids)&set(self.roles)
     def genshin(self):
-        #bot.logger.info('genshin')
-        if self.message==' /深渊使用率' or self.message==' /角色持有':
+        if '/深渊使用率' in self.message or '/角色持有' in self.message:
             self.reply('玩原神玩的')
             return True
         return False
     def set(self):
-        #bot.logger.info('set')
         if self.message!=' 过':
             return False
         if not self.is_admin():
@@ -139,7 +128,6 @@ class Messager:
         checked=ai.check(self.message)
         bot.logger.info('\n'+checked)
         #bot.logger.info(checked)
-        #checked=re.sub(r'^```json|```$', '', checked, flags=re.MULTILINE)
         msg=json.loads(checked)
         if msg['委托表'] != '合法':
             return msg['委托表']
@@ -153,7 +141,6 @@ class Messager:
         bot.logger.info(reply)
         return reply
     def check(self):
-        #bot.logger.info('check')
         if self.channel_id!=guild.assessment_id:
             return False
         if not self.is_at():
@@ -178,77 +165,16 @@ class Messager:
         self.reply(reply)
         return True
 
-class Forumer:
-    def __init__(self,data: Model.FORUMS_EVENT):
-        self.author_id=data.author_id
-        self.thread_id=data.thread_info.thread_id
-        self.channel_id=data.channel_id
-        self.user=bot.api.get_member_info(data.guild_id,data.author_id).data
 
-        self.head=f'<@{self.author_id}>\n'
+with open('../qq-bot.json', 'r', encoding='utf-8') as file:
+    cg = json.load(file)
+bot = BOT(**cg['bot'], is_private=True)
+ai = AI(**cg[cg['run_model']])
+guild = Guild(cg[cg['run_guild']])
 
-    def reply(self,msg:str):
-        bot.api.send_msg(channel_id=guild.assessment_id,
-                         content=self.head+msg,
-                         message_id=self.thread_id)
-    def is_legal(self):
-        for channel in guild.channels:
-            if channel.name=='帖子广场' and channel.id==self.channel_id:
-                return False
-        return True
-    def is_formal(self):
-        return guild.formal_id in self.user.roles
-    def is_admin(self):
-        return set(guild.admin_ids)&set(self.user.roles)
-    def delete(self):
-        bot.api.delete_thread(self.channel_id,self.thread_id)
-    def remind(self):
-        bot.api.create_role_member(self.author_id,guild.id,guild.smartboy_id)
-        bot.api.delete_role_member(self.author_id,guild.id,guild.smartboy_id)
-    def log(self,content):
-        bot.api.send_msg(channel_id=guild.log_id,
-                         content=content,
-                         message_id=self.thread_id)
-    def check(self):
-        """
-        Checks if the forum post is legal and takes appropriate actions.
-
-        If the post is not legal, it logs the event, reminds the user, and deletes the post if the user is not an admin.
-        If the user is an admin, the post is not deleted but still logged.
-        """
-        if self.is_legal():
-            return
-        self.remind()
-        bot.logger.info(f'{self.user.user.username}非法发帖')
-        if self.is_admin():
-            self.log(f'{self.user.user.username}非法发帖,但是权限较高，所以保留帖子内容')
-            
-        else:
-            self.log(f'{self.user.user.username}非法发帖')
-            self.delete()
-        
-        
-        if self.is_formal():
-            self.reply((
-                '机器人已自动将你在帖子广场的帖删除。'
-                f'请在发帖选择<#{guild.cooperation_id}>板块，不要到帖子广场发帖。'
-            ))
-        else:
-            self.reply((
-                '机器人已自动将你在帖子广场的帖删除。'
-                '由于很多人的举报信息收集表填写不完整，导致互助效率极度低下，'
-                '故本频道需要通过考核后才能发帖。'
-                '请先看公告，再来考核区参与考核。'
-            )) 
-
-                                                                
-        
-        
-tree = ET.parse('../qq-bot.xml')
-root = tree.getroot()
-botId = root.find('bot/id').text
-botToken = root.find('bot/token').text
-bot = BOT(bot_id=botId, bot_token=botToken, is_private=True)
+@bot.register_start_event()
+def init():
+    global bot_id; bot_id=bot.api.get_bot_info().data.id
 
 @bot.bind_msg()
 def deliver(data: Model.MESSAGE):
@@ -256,33 +182,16 @@ def deliver(data: Model.MESSAGE):
         return 
     if data.guild_id!=guild.id:
         return
-    #bot.logger.info('permitted channel')
-    user=Messager(data)
-    if user.genshin():
+    msg=Messager(data)
+    if msg.genshin():
         return
-    if user.set():
+    if msg.set():
         return
-    if user.check():
+    if msg.check():
         return
-    if user.query():
+    if msg.query():
         return
 
-@bot.bind_forum()
-def forum_function(data: Model.FORUMS_EVENT):
-    if data.t != 'FORUM_THREAD_CREATE':
-        return
-    if not guild.set(data.guild_id):
-        return 
-    if data.guild_id!=guild.id:
-        return
-    user=Forumer(data)
-    user.check()
-
-@bot.register_start_event()
-def init():
-    global ai; ai = AI('qwen-plus')
-    global guild; guild = Guild(is_test=False)
-    global bot_id; bot_id=bot.api.get_bot_info().data.id
 
 if __name__ == "__main__":
     bot.start()
