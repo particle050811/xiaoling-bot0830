@@ -55,6 +55,8 @@ class Guild:
         name=bot.api.get_guild_info(guild_id).data.name
         if (name != self.name):
             return False
+        global bot_id; bot_id=bot.api.get_bot_info().data.id
+
         self.id = guild_id
         self.channels = bot.api.get_guild_channels(self.id).data
         self.roles = bot.api.get_guild_roles(self.id).data.roles
@@ -112,16 +114,15 @@ class Messager:
         return False
     def set(self):
         if self.message!=' 过':
-            return False
+            return
         if not self.is_admin():
             self.reply('你不是管理员，没有使用该指令的权限')
-            return False
+            return
         members=''
         for member in self.data.mentions:
             self.set_formal(member.id)
             members+=f'<@{member.id}>'
         self.reply(f'已将{members}设置为正式成员\n{self.success}')
-        return True
         
     def ai_check(self):
         bot.logger.info(self.name+'发布委托表：\n'+self.message)
@@ -142,9 +143,9 @@ class Messager:
         return reply
     def check(self):
         if self.channel_id!=guild.assessment_id:
-            return False
+            return
         if not self.is_at():
-            return False
+            return
         self.reply(('小灵bot已收到委托表,预计10s后会回复审核结果'
            '（没有这条消息说明你的消息违规，被tx拦截了，请截图后去人工区考核）'))
         reply=self.ai_check()
@@ -154,16 +155,14 @@ class Messager:
             bot.logger.info(f' {self.name} 通过考核')
         else:
             self.reply(reply)
-        return True
     def query(self):
         if self.channel_id!=guild.answer_id:
-            return False
+            return 
         if not self.is_at():
-            return False
+            return 
         self.reply('小灵bot收到问题，正在编写回复')
         reply=self.ai_query()
         self.reply(reply)
-        return True
 
 
 with open('../qq-bot.json', 'r', encoding='utf-8') as file:
@@ -172,9 +171,6 @@ bot = BOT(**cg['bot'], is_private=True)
 ai = AI(**cg[cg['run_model']])
 guild = Guild(cg[cg['run_guild']])
 
-@bot.register_start_event()
-def init():
-    global bot_id; bot_id=bot.api.get_bot_info().data.id
 
 @bot.bind_msg()
 def deliver(data: Model.MESSAGE):
@@ -183,14 +179,12 @@ def deliver(data: Model.MESSAGE):
     if data.guild_id!=guild.id:
         return
     msg=Messager(data)
+
     if msg.genshin():
         return
-    if msg.set():
-        return
-    if msg.check():
-        return
-    if msg.query():
-        return
+    msg.set()
+    msg.check()
+    msg.query()
 
 
 if __name__ == "__main__":

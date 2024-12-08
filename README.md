@@ -21,7 +21,7 @@ pip install qg-botsdk
       "base_url": "https://api.deepseek.com"
     },
     "qwen": {
-      "model": "qwen-plus-0919",
+      "model": "qwen-plus-1127",
       "api_key": "你的API-KEY",
       "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1"
     },
