@@ -30,8 +30,9 @@ pip install qg-botsdk
       "bot_token": "你的QQ机器人botToken"
     },
     "test": "小灵bot测试频道 //你的测试频道名称",
-    "formal": "学生互助频道 //你的正式频道名称",    
-    "run_model": "qwen // 你选用的模型名称（qwen或deepseek或其他模型）",
+    "formal": "学生互助频道 //你的正式频道名称",
+    "llm_check": "qwen // 你选用的考核模型名称（qwen或deepseek或其他模型）",
+    "llm_query": "qwen // 你选用的答疑模型名称（qwen或deepseek或其他模型）",
     "run_guild": "test // 你选择运行的频道（test或者formal）"
 }
 ```

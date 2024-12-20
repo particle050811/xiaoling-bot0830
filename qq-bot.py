@@ -5,17 +5,19 @@ import json
 import re
 
 class AI:
-    def __init__(self, model, api_key, base_url):
-        self.model=model
-        self.client = OpenAI(api_key=api_key, base_url=base_url)
+    def __init__(self):
+        self.llm_check=cg[cg['llm_check']]
+        self.llm_query=cg[cg['llm_query']]
         with open('check_prompt.txt', 'r',encoding='utf-8') as file:
             self.check_prompt=file.read()
         with open('query_prompt.txt', 'r',encoding='utf-8') as file:
             self.query_prompt=file.read()        
     def check(self, msg):
         bot.logger.info('开始检验')
-        response = self.client.chat.completions.create(
-            model=self.model,
+        client=OpenAI(api_key=self.llm_check['api_key'], 
+                      base_url=self.llm_check['base_url'])
+        response = client.chat.completions.create(
+            model=self.llm_check['model'],
             messages=[
                 {"role": "system", "content": self.check_prompt},
                 {"role": "user", "content": msg}
@@ -35,14 +37,31 @@ class AI:
         return response.choices[0].message.content
     def query(self, msg):
         bot.logger.info('开始答疑')
-        response = self.client.chat.completions.create(
-            model=self.model,
+        client=OpenAI(api_key=self.llm_query['api_key'], 
+                      base_url=self.llm_query['base_url'])
+        response = client.chat.completions.create(
+            model=self.llm_query['model'],
             messages=[
                 {"role": "system", "content": self.query_prompt},
                 {"role": "user", "content": msg}
-            ]
+            ],
+            stream=True
         )
-        return response.choices[0].message.content       
+        collected_content = ""
+        for chunk in response:
+            if chunk.choices:
+                delta = chunk.choices[0].delta
+                if delta.content:
+                    collected_content += delta.content
+                    if len(collected_content) > 100:
+                        # 从后往前查找最后两个连续的换行符
+                        split_index = collected_content.rfind('\n\n')
+                        if split_index != -1:
+                            yield collected_content[:split_index]
+                            split_index += 2  # 不包含两个换行符
+                            collected_content = collected_content[split_index:]
+        if collected_content.strip():  # 处理最后剩余的内容
+            yield collected_content.strip()      
 class Guild:
     def __init__(self,name):
         self.name = name
@@ -138,9 +157,11 @@ class Messager:
                 reply += f'{value}\n'
         return reply[:-1]
     def ai_query(self):
-        reply=ai.query(self.message)
+        reply=''
+        for chunk in ai.query(self.message):
+            self.data.reply(chunk)
+            reply+=chunk
         bot.logger.info(reply)
-        return reply
     def check(self):
         if self.channel_id!=guild.assessment_id:
             return
@@ -161,14 +182,13 @@ class Messager:
         if not self.is_at():
             return 
         self.reply('小灵bot收到问题，正在编写回复')
-        reply=self.ai_query()
-        self.reply(reply)
+        self.ai_query()
 
 
 with open('../qq-bot.json', 'r', encoding='utf-8') as file:
     cg = json.load(file)
 bot = BOT(**cg['bot'], is_private=True)
-ai = AI(**cg[cg['run_model']])
+ai = AI()
 guild = Guild(cg[cg['run_guild']])
 
 
