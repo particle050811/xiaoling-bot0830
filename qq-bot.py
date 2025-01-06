@@ -3,7 +3,7 @@ from qg_botsdk import BOT, Model
 from openai import OpenAI
 import json
 import re
-
+import threading
 class AI:
     def __init__(self):
         self.llm_check=cg[cg['llm_check']]
@@ -36,7 +36,6 @@ class AI:
         '''
         return response.choices[0].message.content
     def query(self, msg):
-        bot.logger.info('开始答疑')
         client=OpenAI(api_key=self.llm_query['api_key'], 
                       base_url=self.llm_query['base_url'])
         response = client.chat.completions.create(
@@ -53,12 +52,16 @@ class AI:
                 delta = chunk.choices[0].delta
                 if delta.content:
                     collected_content += delta.content
-                    if len(collected_content) > 100:
-                        # 从后往前查找最后两个连续的换行符
-                        split_index = collected_content.rfind('\n\n')
+                    split_index = collected_content.rfind('\n\n')
+                    if split_index != -1:
+                        yield collected_content[:split_index]
+                        split_index += 2  # 不包含两个换行符
+                        collected_content = collected_content[split_index:]
+                    if len(collected_content) > 150:
+                        split_index = collected_content.rfind('\n')
                         if split_index != -1:
                             yield collected_content[:split_index]
-                            split_index += 2  # 不包含两个换行符
+                            split_index += 1  # 不包含两个换行符
                             collected_content = collected_content[split_index:]
         if collected_content.strip():  # 处理最后剩余的内容
             yield collected_content.strip()      
@@ -113,6 +116,7 @@ class Messager:
 
         self.head=f'<@{self.author_id}>\n'
         self.success = (f'你通过了考核，请点击<#{guild.cooperation_id}>前往互助区发帖，主动私信联系别人互助。')
+
     def set_formal(self,id):
         bot.api.create_role_member(id,guild.id,guild.formal_id)
     def reply(self, msg):
@@ -156,16 +160,14 @@ class Messager:
             if value!='合法':
                 reply += f'{value}\n'
         return reply[:-1]
-    def ai_query(self):
-        reply=''
-        for chunk in ai.query(self.message):
-            self.data.reply(chunk)
-            reply+=chunk
-        bot.logger.info(reply)
     def check(self):
         if self.channel_id!=guild.assessment_id:
             return
         if not self.is_at():
+            if len(self.message) > 100:
+                self.reply('需要在委托表前 @小灵bot 才能调用自动审核功能')
+            return
+        if len(self.message) < 50:
             return
         self.reply(('小灵bot已收到委托表,预计10s后会回复审核结果'
            '（没有这条消息说明你的消息违规，被tx拦截了，请截图后去人工区考核）'))
@@ -181,8 +183,14 @@ class Messager:
             return 
         if not self.is_at():
             return 
-        self.reply('小灵bot收到问题，正在编写回复')
-        self.ai_query()
+        with query_lock:  # 在 ai_query 方法中加锁
+            self.reply('小灵bot收到问题，正在编写回复')
+            bot.logger.info('开始答疑')
+            reply=''
+            for chunk in ai.query(self.message):
+                self.data.reply(chunk)
+                reply+=chunk
+            bot.logger.info(reply)
 
 
 with open('../qq-bot.json', 'r', encoding='utf-8') as file:
@@ -190,7 +198,7 @@ with open('../qq-bot.json', 'r', encoding='utf-8') as file:
 bot = BOT(**cg['bot'], is_private=True)
 ai = AI()
 guild = Guild(cg[cg['run_guild']])
-
+query_lock = threading.Lock()
 
 @bot.bind_msg()
 def deliver(data: Model.MESSAGE):
