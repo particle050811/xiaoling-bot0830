@@ -25,16 +25,10 @@ class AI:
             #stream=True,
             response_format={'type': 'json_object'}
         )
-        '''
-        reply = ""
-        for chunk in response:
-            if chunk.choices and chunk.choices[0].delta.content:
-                content = chunk.choices[0].delta.content
-                reply += content
-                print(content, end='', flush=True)
-        print()
-        '''
-        return response.choices[0].message.content
+
+        reply = response.choices[0].message.content
+        
+        return reply
     def query(self, msg):
         client=OpenAI(api_key=self.llm_query['api_key'], 
                       base_url=self.llm_query['base_url'])
@@ -153,8 +147,6 @@ class Messager:
         bot.logger.info('\n'+checked)
         #bot.logger.info(checked)
         msg=json.loads(checked)
-        if msg['委托表'] != '合法':
-            return msg['委托表']
         reply = ''
         for value in msg.values():
             if value!='合法':
@@ -164,10 +156,13 @@ class Messager:
         if self.channel_id!=guild.assessment_id:
             return
         if not self.is_at():
-            if len(self.message) > 100:
-                self.reply('需要在委托表前 @小灵bot 才能调用自动审核功能')
-            return
+            if len(self.message) > 150:
+                self.reply('长度大于150，已调用自动审核功能')
+                self.reply('请在委托表前 @小灵bot 以稳定调用自动审核功能')
+            else:
+                return
         if len(self.message) < 50:
+            self.reply('长度小于50，这不是一个正常的委托表')
             return
         self.reply(('小灵bot已收到委托表,预计10s后会回复审核结果'
            '（没有这条消息说明你的消息违规，被tx拦截了，请截图后去人工区考核）'))
