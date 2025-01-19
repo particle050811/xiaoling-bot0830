@@ -114,7 +114,7 @@ class Messager:
     def set_formal(self,id):
         bot.api.create_role_member(id,guild.id,guild.formal_id)
     def reply(self, msg):
-        self.data.reply(self.head+msg,message_reference_id=self.data.id)
+        self.data.reply(msg,message_reference_id=self.data.id)
     def is_at(self):
         if '@小灵bot' in self.message:
             return True
@@ -157,8 +157,8 @@ class Messager:
             return
         if not self.is_at():
             if len(self.message) > 150:
-                self.reply('长度大于150，已调用自动审核功能')
-                self.reply('请在委托表前 @小灵bot 以稳定调用自动审核功能')
+                self.reply(('长度大于150，已调用自动审核功能\n'
+                            '请在委托表前 @小灵bot 以稳定调用自动审核功能'))
             else:
                 return
         if len(self.message) < 50:
