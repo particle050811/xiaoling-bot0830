@@ -84,7 +84,7 @@ class Guild:
         self.formal_id = self.role_dict['正式成员']
         self.smartboy_id = self.role_dict['违规发帖-请先看公告']
 
-        self.log_id = self.channel_dict['机器人运行日志']
+        #self.log_id = self.channel_dict['机器人运行日志']
         self.assessment_id = self.channel_dict['AI自动审核区']
         self.cooperation_id = self.channel_dict['互助区']
         self.answer_id = self.channel_dict['答疑区']
