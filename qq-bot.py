@@ -21,9 +21,8 @@ class AI:
             messages=[
                 {"role": "system", "content": self.check_prompt},
                 {"role": "user", "content": msg}
-            ],
-            #stream=True,
-            response_format={'type': 'json_object'}
+            ]
+            #stream=True
         )
 
         reply = response.choices[0].message.content
@@ -41,24 +40,46 @@ class AI:
             stream=True
         )
         collected_content = ""
+        splitter = ResponseSplitter()
         for chunk in response:
             if chunk.choices:
                 delta = chunk.choices[0].delta
                 if delta.content:
-                    collected_content += delta.content
-                    split_index = collected_content.rfind('\n\n')
-                    if split_index != -1:
-                        yield collected_content[:split_index]
-                        split_index += 2  # 不包含两个换行符
-                        collected_content = collected_content[split_index:]
-                    if len(collected_content) > 150:
-                        split_index = collected_content.rfind('\n')
-                        if split_index != -1:
-                            yield collected_content[:split_index]
-                            split_index += 1  # 不包含两个换行符
-                            collected_content = collected_content[split_index:]
-        if collected_content.strip():  # 处理最后剩余的内容
-            yield collected_content.strip()      
+                    for content in splitter.process(delta.content):
+                        yield content
+        # 处理最终残留内容
+        final_content = splitter.flush()
+        if final_content:
+            yield final_content
+
+class ResponseSplitter:
+    def __init__(self):
+        self.buffer = ''
+        self.max_length = 150
+
+    def process(self, new_content):
+        self.buffer += new_content
+        # 优先处理双换行
+        dbl_newline = self.buffer.rfind('\n\n')
+        if dbl_newline != -1:
+            yield self.buffer[:dbl_newline]
+            self.buffer = self.buffer[dbl_newline+2:]
+            return
+            
+        # 处理单换行（仅在超过长度时）
+        single_newline = self.buffer.rfind('\n')
+        if single_newline > self.max_length:
+            yield self.buffer[:single_newline]
+            self.buffer = self.buffer[single_newline+1:]
+            return
+                    
+
+        
+
+    def flush(self):
+        content = self.buffer.strip()
+        self.buffer = ''
+        return content if content else None
 class Guild:
     def __init__(self,name):
         self.name = name
@@ -157,19 +178,20 @@ class Messager:
             return
         if not self.is_at():
             if len(self.message) > 150:
-                self.reply(('长度大于150，已调用自动审核功能\n'
-                            '请在委托表前 @小灵bot 以稳定调用自动审核功能'))
+                #self.reply(('长度大于150，已调用自动审核功能\n'
+                #            '请在委托表前 @小灵bot 以稳定调用自动审核功能'))
+                pass
             else:
                 return
         if len(self.message) < 50:
             self.reply('长度小于50，这不是一个正常的委托表')
             return
-        self.reply(('小灵bot已收到委托表,预计10s后会回复审核结果'
-           '（没有这条消息说明你的消息违规，被tx拦截了，请截图后去人工区考核）'))
+        #self.reply(('小灵bot已收到委托表,预计10s后会回复审核结果'
+        #   '（没有这条消息说明你的消息违规，被tx拦截了，请截图后去人工区考核）'))
         reply=self.ai_check()
         if reply=='':
-            self.reply(self.success)
             self.set_formal(self.author_id)
+            self.reply(self.success)
             bot.logger.info(f' {self.name} 通过考核')
         else:
             self.reply(reply)
