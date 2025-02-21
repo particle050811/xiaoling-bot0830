@@ -135,7 +135,7 @@ class Messager:
     def set_formal(self,id):
         bot.api.create_role_member(id,guild.id,guild.formal_id)
     def reply(self, msg):
-        self.data.reply(msg,message_reference_id=self.data.id)
+        self.data.reply(self.head+msg,message_reference_id=self.data.id)
     def is_at(self):
         if '@小灵bot' in self.message:
             return True
@@ -186,8 +186,8 @@ class Messager:
         if len(self.message) < 50:
             self.reply('长度小于50，这不是一个正常的委托表')
             return
-        #self.reply(('小灵bot已收到委托表,预计10s后会回复审核结果'
-        #   '（没有这条消息说明你的消息违规，被tx拦截了，请截图后去人工区考核）'))
+        self.reply(('小灵bot已收到委托表,预计10s后会回复审核结果'
+           '（没有这条消息说明你的消息违规，被tx拦截了，请截图后去人工区考核）'))
         reply=self.ai_check()
         if reply=='':
             self.set_formal(self.author_id)
