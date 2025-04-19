@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from qg_botsdk import Model
-from init import Guild, AI, bot, guild, bot_id, ResponseSplitter, ToolCall, FunctionCall, ai # 导入全局 ai 实例
+from init import Guild, AI, bot, guild, ResponseSplitter, ToolCall, FunctionCall, ai # 导入 init 模块本身
 import re
 import threading
 
@@ -42,7 +42,8 @@ class Messager:
             return True
         if 'mentions' not in self.data.__dict__:
             return False
-        return any(item.id == bot_id for item in self.data.mentions)
+        #print(f"message/bot_id = {guild.bot_id}")
+        return any(item.id == guild.bot_id for item in self.data.mentions)
 
     def is_admin(self):
         return set(guild.admin_ids)&set(self.roles)
@@ -52,6 +53,7 @@ class Messager:
             self.reply('玩原神玩的')
             return True
         return False
+    
     def set(self):
         if self.message!=' 过':
             return

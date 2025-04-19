@@ -16,24 +16,31 @@ class Forumer:
         bot.api.send_msg(channel_id=guild.assessment_id,
                          content=self.head+msg,
                          message_id=self.thread_id)
+        
     def is_legal(self):
         for channel in guild.channels:
             if channel.name=='帖子广场' and channel.id==self.channel_id:
                 return False
         return True
+    
     def is_formal(self):
         return guild.formal_id in self.user.roles
+    
     def is_admin(self):
         return set(guild.admin_ids)&set(self.user.roles)
+    
     def delete(self):
         bot.api.delete_thread(self.channel_id,self.thread_id)
+
     def remind(self):
         bot.api.create_role_member(self.author_id,guild.id,guild.smartboy_id)
         bot.api.delete_role_member(self.author_id,guild.id,guild.smartboy_id)
+
     def log(self,content):
         bot.api.send_msg(channel_id=guild.log_id,
                          content=content,
                          message_id=self.thread_id)
+        
     def check(self):
         if self.is_legal():
             return

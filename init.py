@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-bot_id = None  # 全局bot_id定义
 from qg_botsdk import BOT, Model
 from openai import OpenAI
 from dataclasses import dataclass
@@ -84,8 +83,19 @@ class ResponseSplitter:
             return
 
         # 处理单换行（仅在超过长度时）
+        if len(self.buffer) < self.max_length:
+            return
         single_newline = self.buffer.rfind('\n')
         if single_newline > self.max_length:
+            yield self.buffer[:single_newline]
+            self.buffer = self.buffer[single_newline+1:]
+            return
+        
+        # 处理句号（仅在超过长度时）
+        if len(self.buffer) < self.max_length + 50:
+            return
+        single_newline = self.buffer.rfind('。')
+        if single_newline > self.max_length + 50:
             yield self.buffer[:single_newline]
             self.buffer = self.buffer[single_newline+1:]
             return
@@ -99,6 +109,7 @@ class Guild:
     def __init__(self,name):
         self.name = name
         bot.logger.info(f'机器人在{self.name}运行')
+        self.bot_id = None # 初始化 bot_id 实例属性
         self.id = ''
 
     def set(self,guild_id):
@@ -107,8 +118,9 @@ class Guild:
         name=bot.api.get_guild_info(guild_id).data.name
         if (name != self.name):
             return False
-        global bot_id; bot_id=bot.api.get_bot_info().data.id
 
+        self.bot_id=bot.api.get_bot_info().data.id
+        #print(f"init/bot_id = {self.bot_id}")
         self.id = guild_id
         self.channels = bot.api.get_guild_channels(self.id).data
         self.roles = bot.api.get_guild_roles(self.id).data.roles
