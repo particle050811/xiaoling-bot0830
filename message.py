@@ -25,12 +25,18 @@ class Messager:
         self.head=f'<@{self.author_id}>\n'
         self.success = (f'你通过了考核，请点击<#{guild.cooperation_id}>前往互助区发帖，主动私信联系别人互助。')
 
-    def set_formal(self):
-        bot.api.create_role_member(self.author_id,guild.id,guild.formal_id)
+    def set_formal(self, member_id=None):
+        # 如果没有提供 member_id，则默认为消息发送者
+        if member_id is None:
+            member_id = self.author_id
+        bot.api.create_role_member(member_id, guild.id, guild.formal_id)
+
     def reply(self, msg):
         self.data.reply(self.head+msg,message_reference_id=self.data.id)
+
     def send(self, msg):
         self.data.reply(msg)
+
     def is_at(self):
         if '@小灵bot' in self.message:
             return True
@@ -40,6 +46,7 @@ class Messager:
 
     def is_admin(self):
         return set(guild.admin_ids)&set(self.roles)
+    
     def genshin(self):
         if '/深渊使用率' in self.message or '/角色持有' in self.message:
             self.reply('玩原神玩的')
