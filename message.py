@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 from qg_botsdk import Model
-from init import Guild, AI, bot, guild, bot_id, query_lock, ResponseSplitter, ToolCall, FunctionCall, ai # 导入全局 ai 实例
+from init import Guild, AI, bot, guild, bot_id, ResponseSplitter, ToolCall, FunctionCall, ai # 导入全局 ai 实例
 import re
+import threading
+
+check_lock = threading.Lock()
+query_lock = threading.Lock()
 
 class Messager:
     def __init__(self, data: Model.MESSAGE):
@@ -69,16 +73,22 @@ class Messager:
                     '（若长时间未收到回复，可能是消息被tx拦截，请截图至人工审核区审核）'))
 
         try:
-            # 调用执行 AI 检查并处理响应的内部方法
-            self.ai_process()
+            if check_lock.acquire(blocking=False):
+                try:
+                    self.stream_process()
+                finally:
+                    # 释放锁
+                    check_lock.release()
+            else:
+                self.batch_process()         
         except Exception as e:
             bot.logger.error(f"审核过程中发生错误 for {self.name}: {str(e)}")
             self.reply("抱歉，审核过程中发生内部错误，请稍后再试或联系管理员。")
 
-    # 核心审核与处理逻辑 (重命名以避免与主检查入口点混淆)
-    def ai_process(self):
+    # 流式审核与处理逻辑
+    def stream_process(self):
         bot.logger.info(f'{self.name} 发布委托表进行流式审核:\n{self.message}')
-        stream = ai.check(self.message) # 调用流式 AI.check
+        stream = ai.check(self.message, True) # 调用流式 AI.check
 
         splitter = ResponseSplitter()
         final_tool_calls = {}
@@ -149,6 +159,68 @@ class Messager:
                 # 决定此处是否需要回复 - 也许仅在未生成内容时？
                 if not content_generated:
                     self.reply("审核响应包含意外的指令，请联系管理员。")
+    
+    # 非流式审核与处理逻辑
+    def batch_process(self):
+        bot.logger.info(f'{self.name} 发布委托表进行非流式审核:\n{self.message}')
+        try:
+            # 调用非流式 AI.check_non_streaming
+            response = ai.check(self.message, False) # 注意这里调用的是非流式方法
+
+            content = ""
+            tool_calls = None
+            called_set_formal = False
+            content_generated = False
+
+            if response and response.choices:
+                choice = response.choices[0]
+                message = choice.message # 获取完整的 message 对象
+
+                # 1. 处理回复内容
+                if message.content:
+                    content = message.content.strip()
+                    if content:
+                        self.reply(content) # 直接回复完整内容
+                        content_generated = True
+                        bot.logger.info(f"非流式审核回复内容 for {self.name}: {content}")
+
+                # 2. 处理工具调用
+                if message.tool_calls:
+                    tool_calls = message.tool_calls
+                    bot.logger.info(f"收到的工具调用信息 for {self.name} (非流式): {tool_calls}")
+                    for tool_call in tool_calls:
+                        if tool_call.function.name == "set_formal":
+                            bot.logger.info(f'审核通过，执行 set_formal 工具 for {self.name} (非流式)')
+                            try:
+                                self.set_formal() # 执行设置正式成员的操作
+                                self.reply(self.success) # 发送成功通过的消息
+                                bot.logger.info(f' {self.name} 通过考核 (非流式)')
+                                called_set_formal = True
+                                # 假设我们只关心第一个 set_formal 调用
+                                break
+                            except Exception as e:
+                                bot.logger.error(f"执行 set_formal 时出错 for {self.name} (非流式): {e}", exc_info=True)
+                                self.reply("执行通过审核操作时出错，请联系管理员。")
+                                # 标记为尝试过，即使失败
+                                called_set_formal = True
+                                break # 出错后也停止处理其他工具调用
+
+                    # 如果有工具调用但没有 set_formal，并且没有生成内容
+                    if tool_calls and not called_set_formal and not content_generated:
+                         bot.logger.warning(f'收到工具调用但未包含 set_formal for {self.name} (非流式): {tool_calls}')
+                         # 可以选择性地回复，例如：
+                         # self.reply("审核响应包含意外的指令，请联系管理员。")
+
+            # 3. 如果既没有生成内容，也没有调用 set_formal
+            if not content_generated and not called_set_formal:
+                 bot.logger.info(f"非流式审核完成，无内容生成且未调用 set_formal for {self.name}")
+                 # 可以选择性地回复，例如：
+                 # self.reply("审核完成，但未收到明确指示。")
+
+        except Exception as e:
+            # 捕获调用 AI 或处理响应时可能发生的任何错误
+            bot.logger.error(f"非流式审核过程中发生错误 for {self.name}: {str(e)}", exc_info=True)
+            self.reply("抱歉，审核过程中发生内部错误，请稍后再试或联系管理员。")
 
     def query(self):
         if self.channel_id!=guild.answer_id:

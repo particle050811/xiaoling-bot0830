@@ -26,8 +26,8 @@ def forum_function(data: Model.FORUMS_EVENT):
          return 
      if data.guild_id!=guild.id:
          return
-     user=Forumer(data)
-     user.check()
+     #user=Forumer(data)
+     #user.check()
 
 if __name__ == "__main__":
     bot.start()
