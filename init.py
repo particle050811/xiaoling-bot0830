@@ -71,7 +71,7 @@ class AI:
 class ResponseSplitter:
     def __init__(self):
         self.buffer = ''
-        self.max_length = 150
+        self.max_length = 100
 
     def process(self, new_content):
         self.buffer += new_content
@@ -92,11 +92,11 @@ class ResponseSplitter:
             return
         
         # 处理句号（仅在超过长度时）
-        if len(self.buffer) < self.max_length + 50:
+        if len(self.buffer) < self.max_length + 30:
             return
         single_newline = self.buffer.rfind('。')
-        if single_newline > self.max_length + 50:
-            yield self.buffer[:single_newline]
+        if single_newline > self.max_length + 30:
+            yield self.buffer[:single_newline+1]
             self.buffer = self.buffer[single_newline+1:]
             return
 
