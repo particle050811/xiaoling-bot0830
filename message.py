@@ -233,14 +233,24 @@ class Messager:
 
     def query(self):
         if self.channel_id!=guild.answer_id:
-            return 
+            return
         if not self.is_at():
-            return 
+            return
         with query_lock:  # 在 ai_query 方法中加锁
             self.reply('小灵bot收到问题，正在编写回复')
             bot.logger.info('开始答疑')
             reply=''
+            splitter = ResponseSplitter() # 初始化分词器
             for chunk in ai.query(self.message):
-                self.data.reply(chunk)
-                reply+=chunk
+                if not chunk.choices:
+                    continue
+                delta = chunk.choices[0].delta
+                if delta.content:
+                    for c in splitter.process(delta.content):
+                        self.send(c) # 流式发送分词后的内容
+                    reply+=delta.content # 累积完整回复用于日志记录
+            # 处理分词器中剩余的内容
+            final_content = splitter.flush()
+            if final_content:
+                self.send(final_content)
             bot.logger.info(reply)
