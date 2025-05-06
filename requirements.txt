@@ -1,0 +1,3 @@
+openai
+qg-botsdk
+alibabacloud_iqs20241111==1.1.6

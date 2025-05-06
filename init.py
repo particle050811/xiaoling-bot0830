@@ -71,34 +71,35 @@ class AI:
 class ResponseSplitter:
     def __init__(self):
         self.buffer = ''
-        self.max_length = 100
+        self.split_content = ''
+
+    def split(self, dict, max_len):
+        if len(self.buffer) < max_len:
+            return False
+        pos = -1
+        for s in dict:
+            pos = max(pos, self.buffer.rfind(s) + len(s)) # 这里 len(s) 是正确的，因为 s 是字符串，调用的是内置的 len 函数
+        if pos < max_len:
+            return False
+        self.split_content = self.buffer[:pos].strip()
+        self.buffer = self.buffer[pos:].strip()
+        return True
 
     def process(self, new_content):
         self.buffer += new_content
+        
         # 优先处理双换行
-        dbl_newline = self.buffer.rfind('\n\n')
-        if dbl_newline != -1:
-            yield self.buffer[:dbl_newline]
-            self.buffer = self.buffer[dbl_newline+2:]
-            return
-
-        # 处理单换行（仅在超过长度时）
-        if len(self.buffer) < self.max_length:
-            return
-        single_newline = self.buffer.rfind('\n')
-        if single_newline > self.max_length:
-            yield self.buffer[:single_newline]
-            self.buffer = self.buffer[single_newline+1:]
+        if self.split(['\n\n'],10):
+            yield self.split_content
+        else:
             return
         
-        # 处理句号（仅在超过长度时）
-        if len(self.buffer) < self.max_length + 30:
+        # 在超过长度时处理其他分隔符
+        if self.split(['\n','。','；'],70):
+            yield self.split_content
+        else:
             return
-        single_newline = max(self.buffer.rfind('。'),self.buffer.rfind('；'))
-        if single_newline > self.max_length + 30:
-            yield self.buffer[:single_newline+1]
-            self.buffer = self.buffer[single_newline+1:]
-            return
+        
 
     def flush(self):
         content = self.buffer.strip()
