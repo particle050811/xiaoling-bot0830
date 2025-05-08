@@ -4,17 +4,6 @@ from openai import OpenAI
 from dataclasses import dataclass
 import json
 
-@dataclass
-class FunctionCall:
-    name: str
-    arguments: str
-
-@dataclass
-class ToolCall:
-    id: str
-    type: str
-    function: FunctionCall
-
 # 定义全局的 set_formal tool
 SET_FORMAL_TOOL = {
     "type": "function",

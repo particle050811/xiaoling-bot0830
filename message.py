@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from qg_botsdk import Model
-from init import Guild, AI, bot, guild, ResponseSplitter, ToolCall, FunctionCall, ai # 导入 init 模块本身
+from init import bot, guild, ResponseSplitter, ai # 导入 init 模块本身
 import re
 import threading
 
@@ -71,37 +71,35 @@ class Messager:
             return
         # 简化触发逻辑：始终检查是否在审核频道且足够长
         if len(self.message) < 50:
-            # 或许可以添加检查，看是否是明确要求检查的 @ 消息？
-            # 目前，除非明确 @ 机器人，否则忽略短消息
             if self.is_at():
                  self.reply('消息太短（<50字），小灵bot认为这不是一个委托表，不进行审核。')
             return
 
-        # 通知用户检查已启动
+        # 通知用户审核已启动
         self.reply(('小灵bot收到委托表，正在思考ing\n'
                     '（若长时间未收到回复，可能是消息被tx拦截，请截图至人工审核区审核）'))
 
         try:
             if check_lock.acquire(blocking=False):
                 try:
-                    self.stream_process()
+                    self.process(True)
                 finally:
                     # 释放锁
                     check_lock.release()
             else:
-                self.batch_process()         
+                self.process(False)         
         except Exception as e:
             bot.logger.error(f"审核过程中发生错误 for {self.name}: {str(e)}")
             self.reply("抱歉，审核过程中发生内部错误，请稍后再试或联系管理员。")
 
     # 流式审核与处理逻辑
-    def stream_process(self):
+    def process(self, stream):
         bot.logger.info(f'{self.name} 发布委托表进行流式审核:\n{self.message}')
         stream = ai.check(self.message, True) # 调用流式 AI.check
 
         splitter = ResponseSplitter()
         final_tool_calls = {}
-        content = "" # 新增：用于累积最终内容
+        content = "" #新增：用于累积最终内容
 
         for chunk in stream:
             if not chunk.choices:
@@ -111,125 +109,38 @@ class Messager:
 
             if hasattr(delta, 'reasoning_content'):
                 reasoning_text = delta.reasoning_content
-                if reasoning_text: # 检查是否非空
+                if reasoning_text and stream: # 检查是否非空
                     for c in splitter.process(reasoning_text):
                         self.send(c)
 
             # 累积工具调用 (逻辑不变)
-            if delta.tool_calls:
-                for tool_call_chunk in delta.tool_calls:
-                    index = tool_call_chunk.index
-                    if index not in final_tool_calls:
-                        # 如果是此索引的第一个块，则初始化工具调用结构
-                        final_tool_calls[index] = ToolCall(
-                            id=tool_call_chunk.id,
-                            type='function',
-                            function=FunctionCall(name=tool_call_chunk.function.name or "", arguments="")
-                        )
-                    # 追加参数块
-                    if tool_call_chunk.function.arguments:
-                         final_tool_calls[index].function.arguments += tool_call_chunk.function.arguments
+            for tool_call in chunk.choices[0].delta.tool_calls or []:
+                index = tool_call.index
+                if index not in final_tool_calls:
+                    final_tool_calls[index] = tool_call
+                final_tool_calls[index].function.arguments += tool_call.function.arguments
 
             # 修改：累积 content
             if delta.content:
                 content += delta.content
 
-                # 处理最终残留内容
+        # 处理最终残留内容
         final_content = splitter.flush()
-        if final_content :
+        if final_content and stream:
             self.send(final_content)
 
-        # --- 流结束后处理 ---
-        content_generated = False # 重置标记，仅当实际发送最终内容时为 True
         if content:
             content = content.strip()
             if content != '':
                 self.reply(content)
-                content_generated = True # 标记已生成并发送最终内容
 
-        called_set_formal = False
-        if final_tool_calls:
-            bot.logger.info(f"收到的工具调用信息 for {self.name}: {final_tool_calls}")
-            for index, tool_call in final_tool_calls.items():
-                if tool_call.function.name == "set_formal":
-                    bot.logger.info(f'审核通过，执行 set_formal 工具 for {self.name}')
-                    try:
-                        self.set_formal()
-                        self.reply(self.success)
-                        bot.logger.info(f' {self.name} 通过考核')
-                        called_set_formal = True
-                    except Exception as e:
-                        bot.logger.error(f"执行 set_formal 时出错 for {self.name}: {e}", exc_info=True)
-                        self.reply("执行通过审核操作时出错，请联系管理员。")
-
-            if not called_set_formal:
-                # 如果检测到工具调用但未包含 'set_formal'，则记录日志
-                bot.logger.warning(f'收到工具调用但未包含 set_formal for {self.name}: {final_tool_calls}')
-                # 决定此处是否需要回复 - 也许仅在未生成内容时？
-                if not content_generated:
-                    self.reply("审核响应包含意外的指令，请联系管理员。")
-    
-    # 非流式审核与处理逻辑
-    def batch_process(self):
-        bot.logger.info(f'{self.name} 发布委托表进行非流式审核:\n{self.message}')
-        try:
-            # 调用非流式 AI.check_non_streaming
-            response = ai.check(self.message, False) # 注意这里调用的是非流式方法
-
-            content = ""
-            tool_calls = None
-            called_set_formal = False
-            content_generated = False
-
-            if response and response.choices:
-                choice = response.choices[0]
-                message = choice.message # 获取完整的 message 对象
-
-                # 1. 处理回复内容
-                if message.content:
-                    content = message.content.strip()
-                    if content:
-                        self.reply(content) # 直接回复完整内容
-                        content_generated = True
-                        bot.logger.info(f"非流式审核回复内容 for {self.name}: {content}")
-
-                # 2. 处理工具调用
-                if message.tool_calls:
-                    tool_calls = message.tool_calls
-                    bot.logger.info(f"收到的工具调用信息 for {self.name} (非流式): {tool_calls}")
-                    for tool_call in tool_calls:
-                        if tool_call.function.name == "set_formal":
-                            bot.logger.info(f'审核通过，执行 set_formal 工具 for {self.name} (非流式)')
-                            try:
-                                self.set_formal() # 执行设置正式成员的操作
-                                self.reply(self.success) # 发送成功通过的消息
-                                bot.logger.info(f' {self.name} 通过考核 (非流式)')
-                                called_set_formal = True
-                                # 假设我们只关心第一个 set_formal 调用
-                                break
-                            except Exception as e:
-                                bot.logger.error(f"执行 set_formal 时出错 for {self.name} (非流式): {e}", exc_info=True)
-                                self.reply("执行通过审核操作时出错，请联系管理员。")
-                                # 标记为尝试过，即使失败
-                                called_set_formal = True
-                                break # 出错后也停止处理其他工具调用
-
-                    # 如果有工具调用但没有 set_formal，并且没有生成内容
-                    if tool_calls and not called_set_formal and not content_generated:
-                         bot.logger.warning(f'收到工具调用但未包含 set_formal for {self.name} (非流式): {tool_calls}')
-                         # 可以选择性地回复，例如：
-                         # self.reply("审核响应包含意外的指令，请联系管理员。")
-
-            # 3. 如果既没有生成内容，也没有调用 set_formal
-            if not content_generated and not called_set_formal:
-                 bot.logger.info(f"非流式审核完成，无内容生成且未调用 set_formal for {self.name}")
-                 # 可以选择性地回复，例如：
-                 # self.reply("审核完成，但未收到明确指示。")
-
-        except Exception as e:
-            # 捕获调用 AI 或处理响应时可能发生的任何错误
-            bot.logger.error(f"非流式审核过程中发生错误 for {self.name}: {str(e)}", exc_info=True)
-            self.reply("抱歉，审核过程中发生内部错误，请稍后再试或联系管理员。")
+        print("Tools: ", final_tool_calls)
+        for tool_call in  final_tool_calls.values():
+            bot.logger.info(f"收到的工具调用信息 for {self.name}: {tool_call}")
+            if tool_call.function.name == "set_formal":
+                self.set_formal()
+                self.reply(self.success)                    
+                bot.logger.info(f'审核通过，执行 set_formal 工具 for {self.name}')
 
     def query(self):
         if self.channel_id!=guild.answer_id:
